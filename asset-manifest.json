@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/notas_anonimas_front/static/js/main.75053e12.js",
+    "static/js/787.2af61c8b.chunk.js": "/notas_anonimas_front/static/js/787.2af61c8b.chunk.js",
+    "index.html": "/notas_anonimas_front/index.html",
+    "main.75053e12.js.map": "/notas_anonimas_front/static/js/main.75053e12.js.map",
+    "787.2af61c8b.chunk.js.map": "/notas_anonimas_front/static/js/787.2af61c8b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.75053e12.js"
+  ]
+}
