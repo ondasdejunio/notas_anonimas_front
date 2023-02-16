@@ -25,6 +25,7 @@ import { useState } from "react";
 import { deletePost, likePost } from "../../services/post";
 import PopoverDeletePost from "../PopoverDeletePost";
 import useToast from "../../hooks/useToast";
+import useWidth from "../../hooks/useWidth";
 
 const CardMinimal = (props) => {
   const { data = {} } = props;
@@ -46,6 +47,7 @@ const CardMinimal = (props) => {
   const [isLoadingPostLike, setIsLoadingPostLike] = useState(false);
   const [isLoadingDeletePost, setIsLoadingDeletePost] = useState(false);
   const { successToast, errorToast } = useToast();
+  const { isBaseWidth } = useWidth();
 
   const {
     headerBgColor = "",
@@ -116,9 +118,16 @@ const CardMinimal = (props) => {
           alignItems={{ base: "flex-start", md: "center" }}
           gap="2px"
         >
-          <Flex minWidth="min-content" width="100%" flexDir="row" gap="5px">
+          <Flex
+            minWidth="min-content"
+            width="100%"
+            flexDir="row"
+            gap="5px"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Text
-              fontSize={{ base: "20px", sm: "16px", lg: "18px" }}
+              fontSize={{ base: "20px", md: "18px" }}
               fontWeight="500"
               sx={{
                 width: { base: "100%", md: "80%" },
@@ -131,6 +140,23 @@ const CardMinimal = (props) => {
             >
               {title}
             </Text>
+            {isBaseWidth && userDetails.username === userPost && (
+              <PopoverDeletePost
+                handleClickButton={onClickPostDelete}
+                isLoading={isLoadingDeletePost}
+                title="Eliminar post"
+                message="Se eliminará el post, ¿estás seguro?"
+              >
+                <IconButton
+                  sx={{ color }}
+                  variant="cardButton"
+                  size="xs"
+                  aria-label="Like"
+                  icon={<AiFillDelete size={20} />}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </PopoverDeletePost>
+            )}
           </Flex>
           <Text
             sx={{
@@ -148,7 +174,7 @@ const CardMinimal = (props) => {
               dateBirth
             )}, ${getStringTimeFromNow(createdAt)}`}
           </Text>
-          {userDetails.username === userPost && (
+          {!isBaseWidth && userDetails.username === userPost && (
             <PopoverDeletePost
               handleClickButton={onClickPostDelete}
               isLoading={isLoadingDeletePost}

@@ -203,21 +203,44 @@ const CardModal = (props) => {
                     minWidth="min-content"
                     width="100%"
                     flexDir="column"
-                    gap="2px"
+                    gap="5px"
                   >
-                    <Text
-                      fontSize={{ base: "22px", sm: "18px", lg: "22px" }}
-                      fontWeight="500"
-                      sx={{
-                        width: { base: "100%", md: "80%" },
-                        lineHeight: "1.2",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        color,
-                      }}
+                    <Flex
+                      justifyContent="space-between"
+                      alignItems="center"
+                      gap="5px"
                     >
-                      {title}
-                    </Text>
+                      <Text
+                        fontSize={{ base: "22px", sm: "18px", lg: "22px" }}
+                        fontWeight="500"
+                        sx={{
+                          width: { base: "100%", md: "80%" },
+                          lineHeight: "1.2",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          wordBreak: "break-all",
+                          color,
+                        }}
+                      >
+                        {title}
+                      </Text>
+                      {isBaseWidth && userDetails.username === userPost && (
+                        <PopoverDeletePost
+                          handleClickButton={onClickPostDelete}
+                          isLoading={isLoadingDeletePost}
+                          title="Eliminar post"
+                          message="Se eliminará el post, ¿estás seguro?"
+                        >
+                          <IconButton
+                            sx={{ color }}
+                            variant="cardButton"
+                            size="sm"
+                            aria-label="Eliminar post"
+                            icon={<Icon as={AiFillDelete} boxSize="25px" />}
+                          />
+                        </PopoverDeletePost>
+                      )}
+                    </Flex>
                     {!isBaseWidth && (
                       <Text
                         sx={{
@@ -267,7 +290,7 @@ const CardModal = (props) => {
                       </>
                     )}
                   </Text>
-                  {userDetails.username === userPost && (
+                  {!isBaseWidth && userDetails.username === userPost && (
                     <PopoverDeletePost
                       handleClickButton={onClickPostDelete}
                       isLoading={isLoadingDeletePost}
