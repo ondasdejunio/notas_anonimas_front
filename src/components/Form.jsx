@@ -14,8 +14,15 @@ import PropTypes from "prop-types";
 import { Formik, Form as FormikForm } from "formik";
 
 const Form = (props) => {
-  const { fields, validationSchema, initialValues, onSubmit, actions, styles } =
-    props;
+  const {
+    fields,
+    validationSchema,
+    initialValues,
+    onSubmit,
+    actions,
+    styles,
+    onChange,
+  } = props;
 
   const handleSubmit = (values, { setSubmitting }) => {
     onSubmit(values);
@@ -56,7 +63,10 @@ const Form = (props) => {
                 const isFieldInvalid = errors[id] && touched[id];
                 const componentProps = {
                   name: id,
-                  onChange: handleChange,
+                  onChange: (e) => {
+                    handleChange(e);
+                    onChange({ ...values, [id]: e.target.value });
+                  },
                   onBlur: handleBlur,
                   value: values[id],
                   disabled,
@@ -205,6 +215,7 @@ Form.propTypes = {
   onSubmit: PropTypes.func,
   styles: PropTypes.object,
   actions: PropTypes.array,
+  onChange: PropTypes.func,
 };
 
 Form.defaultProps = {
@@ -214,6 +225,7 @@ Form.defaultProps = {
   onSubmit: undefined,
   styles: {},
   actions: [],
+  onChange: undefined,
 };
 
 export default Form;

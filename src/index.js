@@ -1,7 +1,8 @@
-// import React from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
+import "./index.css";
 
 import { WidthContextProvider } from "./providers/WidthProvider";
 import { ToastContextProvider } from "./providers/ToastProvider";
@@ -13,21 +14,21 @@ import { LoadingContextProvider } from "./providers/LoadingProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
-  <ChakraProvider theme={theme}>
-    <LoadingContextProvider>
-      <DataContextProvider>
-        <AuthContextProvider>
-          <ToastContextProvider>
-            <WidthContextProvider>
-              <Router />
-            </WidthContextProvider>
-          </ToastContextProvider>
-        </AuthContextProvider>
-      </DataContextProvider>
-    </LoadingContextProvider>
-  </ChakraProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ChakraProvider theme={theme}>
+      <LoadingContextProvider>
+        <DataContextProvider>
+          <AuthContextProvider>
+            <ToastContextProvider>
+              <WidthContextProvider>
+                <Router />
+              </WidthContextProvider>
+            </ToastContextProvider>
+          </AuthContextProvider>
+        </DataContextProvider>
+      </LoadingContextProvider>
+    </ChakraProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

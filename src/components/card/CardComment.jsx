@@ -82,9 +82,8 @@ const CardComment = (props) => {
           <Text
             lineHeight="1.3"
             sx={{
-              overflowWrap: "break-word",
+              overflowWrap: "break-all",
               wordWrap: "break-word",
-              wordBreak: "break-all",
               hyphens: "auto",
               whiteSpace: "pre-wrap",
             }}

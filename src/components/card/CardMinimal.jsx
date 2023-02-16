@@ -132,7 +132,8 @@ const CardMinimal = (props) => {
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 color,
-                wordBreak: "break-all",
+                overflowWrap: "break-all",
+                wordWrap: "break-word",
               }}
             >
               {title}
@@ -214,7 +215,8 @@ const CardMinimal = (props) => {
           <Text
             sx={{
               whiteSpace: "pre-wrap",
-              wordBreak: "break-all",
+              overflowWrap: "break-all",
+              wordWrap: "break-word",
               hyphens: "auto",
               lineHeight: "1.3",
             }}

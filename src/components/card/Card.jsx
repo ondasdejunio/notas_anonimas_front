@@ -208,9 +208,8 @@ const Card = (props) => {
             marginY: "5px",
             bgColor: "transparent",
             border: "none",
-            overflowWrap: "break-word",
+            overflowWrap: "break-all",
             wordWrap: "break-word",
-            wordBreak: "break-all",
             whiteSpace: "pre-wrap",
             hyphens: "auto",
             "::-webkit-resizer": {

@@ -70,6 +70,14 @@ const DataContextProvider = (props) => {
     });
   };
 
+  const handlePostCommentDelete = (id) => {
+    setData((arr) => {
+      const item = arr.find((c) => c.id === id);
+      item.comments -= 1;
+      return [...arr];
+    });
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -80,6 +88,7 @@ const DataContextProvider = (props) => {
         handlePostLike,
         handlePostDelete,
         handlePostComment,
+        handlePostCommentDelete,
         isLoading,
         isLoadingInitialData,
         setIsLoading,

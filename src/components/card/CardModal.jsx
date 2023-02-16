@@ -40,7 +40,12 @@ import useWidth from "../../hooks/useWidth";
 
 const CardModal = (props) => {
   const { data: post, openModal, onCloseModal } = props;
-  const { handlePostLike, handlePostComment, handlePostDelete } = useData();
+  const {
+    handlePostLike,
+    handlePostComment,
+    handlePostDelete,
+    handlePostCommentDelete,
+  } = useData();
   const { isBaseWidth } = useWidth();
   const { isAuthenticated, userDetails } = useAuth();
   const { setOpenLoginModal } = useLoginModal();
@@ -152,12 +157,13 @@ const CardModal = (props) => {
     });
   };
 
-  const handlePostCommentDelete = (commentId) => {
+  const handlePostCommentDeleteCard = (commentId) => {
     setData((obj) => {
       const comments = obj.comments.filter((c) => c.id !== commentId);
       obj.comments = comments;
       return { ...obj };
     });
+    handlePostCommentDelete(id);
   };
 
   return (
@@ -188,7 +194,7 @@ const CardModal = (props) => {
               overflow="hidden"
               boxShadow="xl"
             >
-              <Flex width="100%" maxHeight="40vh" direction="column" key={id}>
+              <Flex width="100%" maxHeight="45vh" direction="column" key={id}>
                 <Flex
                   width="100%"
                   padding={{ base: "15px 10px", md: "10px", lg: "15px" }}
@@ -218,7 +224,8 @@ const CardModal = (props) => {
                           lineHeight: "1.2",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
-                          wordBreak: "break-all",
+                          overflowWrap: "break-all",
+                          wordWrap: "break-word",
                           color,
                         }}
                       >
@@ -329,12 +336,15 @@ const CardModal = (props) => {
                   padding="20px 15px"
                   flexDir="column"
                   minHeight="10vh"
+                  height="fit-content"
+                  overflowY="auto"
                   paddingBottom="10px"
                 >
                   <Text
                     sx={{
                       whiteSpace: "pre-wrap",
-                      wordBreak: "break-all",
+                      overflowWrap: "break-all",
+                      wordWrap: "break-word",
                       hyphens: "auto",
                       lineHeight: "1.3",
                     }}
@@ -420,7 +430,7 @@ const CardModal = (props) => {
                     key={i}
                     data={d}
                     handleCommentLike={handlePostCommentLike}
-                    handlePostCommentDelete={handlePostCommentDelete}
+                    handlePostCommentDelete={handlePostCommentDeleteCard}
                   />
                 ))}
               </Flex>
@@ -441,9 +451,8 @@ const CardModal = (props) => {
                     marginY: "5px",
                     bgColor: "transparent",
                     border: "none",
-                    overflowWrap: "break-word",
+                    overflowWrap: "break-all",
                     wordWrap: "break-word",
-                    wordBreak: "break-all",
                     whiteSpace: "pre-wrap",
                     hyphens: "auto",
                     "::-webkit-resizer": {

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import { HiUser } from "react-icons/hi";
@@ -17,6 +17,9 @@ const UserPage = () => {
   const { setIsAuthenticated, setUserDetails } = useAuth();
   const navigate = useNavigate();
   const authUserDetails = useAuth().userDetails;
+  const [isDisabledNewPasswordFields, setIsDisabledNewPasswordFields] =
+    useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
   const userValues = {
     gender: authUserDetails.gender || "",
     dateBirth: authUserDetails.dateBirth || "",
@@ -100,6 +103,7 @@ const UserPage = () => {
       label: "Nueva contraseña",
       type: "text",
       subtype: "password",
+      disabled: isDisabledNewPasswordFields,
       grid: { base: 6, md: 3, lg: 3 },
     },
     {
@@ -107,6 +111,7 @@ const UserPage = () => {
       label: "Confirmar nueva contraseña",
       type: "text",
       subtype: "password",
+      disabled: isDisabledNewPasswordFields,
       grid: { base: 6, md: 3, lg: 3 },
     },
   ];
@@ -130,7 +135,7 @@ const UserPage = () => {
         width: "fit-content",
         paddingX: "20px",
       },
-      disabled: isLoading,
+      disabled: isLoading || !isValidPassword,
     },
   ];
 
@@ -158,7 +163,7 @@ const UserPage = () => {
         localStorage.setItem("user", JSON.stringify(userModifiedDetails));
         setUserDetails(userModifiedDetails);
         setIsLoading(false);
-        navigate(0);
+        navigate("/");
       })
       .catch((e) => {
         const { response = null } = e;
@@ -180,6 +185,26 @@ const UserPage = () => {
   const styles = {
     direction: "row",
     gap: "7px",
+  };
+
+  const handleChangeValues = (values) => {
+    const isActualPasswordNull =
+      values.password === null || values.password === "";
+    const isNewPasswordNull =
+      values.newPassword === null || values.newPassword === "";
+    const isConfirmNewPasswordNull =
+      values.confirmNewPassword === null || values.confirmNewPassword === "";
+
+    if (!isActualPasswordNull) {
+      setIsDisabledNewPasswordFields(false);
+    } else {
+      setIsDisabledNewPasswordFields(true);
+      if (!isNewPasswordNull || !isConfirmNewPasswordNull) {
+        setIsValidPassword(false);
+      } else {
+        setIsValidPassword(true);
+      }
+    }
   };
 
   return (
@@ -264,6 +289,7 @@ const UserPage = () => {
               onSubmit={handleSubmit}
               actions={actions}
               styles={styles}
+              onChange={handleChangeValues}
             />
           </VStack>
         </VStack>
