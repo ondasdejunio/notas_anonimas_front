@@ -235,8 +235,17 @@ const CardModal = (props) => {
                             sx={{ color }}
                             variant="cardButton"
                             size="sm"
-                            aria-label="Eliminar post"
-                            icon={<Icon as={AiFillDelete} boxSize="25px" />}
+                            aria-label="Eliminar"
+                            icon={
+                              isLoadingDeletePost ? (
+                                <Spinner size={{ base: "md", md: "sm" }} />
+                              ) : (
+                                <Icon
+                                  as={AiFillDelete}
+                                  boxSize={{ base: "32px", md: "25px" }}
+                                />
+                              )
+                            }
                           />
                         </PopoverDeletePost>
                       )}
@@ -303,10 +312,14 @@ const CardModal = (props) => {
                         size="sm"
                         aria-label="Eliminar"
                         icon={
-                          <Icon
-                            as={AiFillDelete}
-                            boxSize={{ base: "32px", md: "25px" }}
-                          />
+                          isLoadingDeletePost ? (
+                            <Spinner size={{ base: "md", md: "sm" }} />
+                          ) : (
+                            <Icon
+                              as={AiFillDelete}
+                              boxSize={{ base: "32px", md: "25px" }}
+                            />
+                          )
                         }
                       />
                     </PopoverDeletePost>

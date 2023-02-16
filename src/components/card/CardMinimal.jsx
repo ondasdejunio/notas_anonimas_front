@@ -103,9 +103,6 @@ const CardMinimal = (props) => {
       overflow="hidden"
       height="fit-content"
       boxShadow="xl"
-      _active={{
-        transform: "scale(0.95)",
-      }}
     >
       <Flex width="100%" direction="column" key={id}>
         <Flex
@@ -150,9 +147,18 @@ const CardMinimal = (props) => {
                 <IconButton
                   sx={{ color }}
                   variant="cardButton"
-                  size="xs"
-                  aria-label="Like"
-                  icon={<AiFillDelete size={20} />}
+                  size="sm"
+                  aria-label="Eliminar comentario"
+                  icon={
+                    isLoadingDeletePost ? (
+                      <Spinner size={{ base: "md", md: "sm" }} />
+                    ) : (
+                      <Icon
+                        as={AiFillDelete}
+                        boxSize={{ base: "32px", md: "25px" }}
+                      />
+                    )
+                  }
                   onClick={(e) => e.stopPropagation()}
                 />
               </PopoverDeletePost>
@@ -184,9 +190,18 @@ const CardMinimal = (props) => {
               <IconButton
                 sx={{ color }}
                 variant="cardButton"
-                size="xs"
-                aria-label="Like"
-                icon={<AiFillDelete size={20} />}
+                size="sm"
+                aria-label="Eliminar comentario"
+                icon={
+                  isLoadingDeletePost ? (
+                    <Spinner size={{ base: "md", md: "sm" }} />
+                  ) : (
+                    <Icon
+                      as={AiFillDelete}
+                      boxSize={{ base: "32px", md: "25px" }}
+                    />
+                  )
+                }
                 onClick={(e) => e.stopPropagation()}
               />
             </PopoverDeletePost>
