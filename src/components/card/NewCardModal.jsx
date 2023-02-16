@@ -17,11 +17,11 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import PropTypes from "prop-types";
 
-import useToast from "../hooks/useToast";
-import { createPost } from "../services/post";
-import { getCardDescriptionFontSize, userGenderColors } from "../utils/user";
-import useAuth from "../hooks/useAuth";
-import AutoResizeTextArea from "./AutoResizeTextArea";
+import useToast from "../../hooks/useToast";
+import { createPost } from "../../services/post";
+import { getCardDescriptionFontSize, userGenderColors } from "../../utils/user";
+import useAuth from "../../hooks/useAuth";
+import AutoResizeTextArea from "../AutoResizeTextArea";
 
 const NewCardModal = (props) => {
   const { onCreatedPost, openModal, onCloseModal } = props;
@@ -130,8 +130,8 @@ const NewCardModal = (props) => {
                                   borderColor: color,
                                   _placeholder: { color, opacity: "0.5" },
                                   fontSize: {
-                                    base: "14px",
-                                    md: "16px",
+                                    base: "20px",
+                                    md: "17px",
                                     lg: "18px",
                                   },
                                 }}
@@ -206,7 +206,7 @@ const NewCardModal = (props) => {
                           <Button
                             sx={{
                               width: "fit-content",
-                              padding: { base: "5px 10px", md: "10px 20px" },
+                              padding: { base: "10px 15px", md: "10px 20px" },
                               alignSelf: "flex-end",
                             }}
                             variant="primary"

@@ -25,15 +25,23 @@ const ScrollToTop = () => {
   if (showTopBtn) {
     return (
       <IconButton
-        icon={<AiOutlineArrowUp fontSize={20} />}
+        icon={<AiOutlineArrowUp fontSize={25} />}
         sx={{
           position: "fixed",
           bottom: "40px",
           right: "25px",
           zIndex: 20,
           borderRadius: "0px",
+          bgColor: "secondary.300",
+          _hover: {
+            bgColor: "secondary.100",
+          },
+          _active: {
+            bgColor: "secondary.500",
+          },
         }}
-        size="lg"
+        boxShadow="lg"
+        boxSize={{ base: "60px", md: "50px" }}
         onClick={() => scrollWindowToTop()}
       />
     );

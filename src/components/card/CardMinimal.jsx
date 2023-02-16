@@ -1,22 +1,30 @@
-import { Box, Flex, Text, IconButton, HStack, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  IconButton,
+  HStack,
+  Spinner,
+  Icon,
+} from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import { AiOutlineHeart, AiFillDelete } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 
-import { getStringTimeFromNow } from "../utils/date";
+import { getStringTimeFromNow } from "../../utils/date";
 import {
   getUserAgeFromNow,
   getUserGenderLetter,
   userGenderColors,
-} from "../utils/user";
-import useAuth from "../hooks/useAuth";
-import useLoginModal from "../hooks/useLoginModal";
-import useData from "../hooks/useData";
+} from "../../utils/user";
+import useAuth from "../../hooks/useAuth";
+import useLoginModal from "../../hooks/useLoginModal";
+import useData from "../../hooks/useData";
 import { useState } from "react";
-import { deletePost, likePost } from "../services/post";
-import PopoverDeletePost from "./PopoverDeletePost";
-import useToast from "../hooks/useToast";
+import { deletePost, likePost } from "../../services/post";
+import PopoverDeletePost from "../PopoverDeletePost";
+import useToast from "../../hooks/useToast";
 
 const CardMinimal = (props) => {
   const { data = {} } = props;
@@ -76,11 +84,11 @@ const CardMinimal = (props) => {
   const getFontSize = () => {
     const length = description.length;
     if (length <= 150) {
-      return { base: "18px", md: "20px", lg: "24px" };
+      return { base: "24px", md: "20px", lg: "24px" };
     } else if (length <= 300) {
-      return { base: "16px", md: "16px", lg: "18px" };
+      return { base: "20px", md: "16px", lg: "18px" };
     } else {
-      return { base: "14px", md: "16px", lg: "17px" };
+      return { base: "18px", md: "16px", lg: "17px" };
     }
   };
 
@@ -93,24 +101,27 @@ const CardMinimal = (props) => {
       overflow="hidden"
       height="fit-content"
       boxShadow="xl"
+      _active={{
+        transform: "scale(0.95)",
+      }}
     >
       <Flex width="100%" direction="column" key={id}>
         <Flex
           width="100%"
-          padding="5px 10px"
+          padding={{ base: "10px 15px", md: "5px 10px" }}
           bgGradient={headerBgColor}
           borderBottom="1px solid #dedaaf"
-          direction="row"
+          direction={{ base: "column", md: "row" }}
           justifyContent="space-between"
-          alignItems="center"
-          gap="5px"
+          alignItems={{ base: "flex-start", md: "center" }}
+          gap="2px"
         >
           <Flex minWidth="min-content" width="100%" flexDir="row" gap="5px">
             <Text
-              fontSize={{ base: "14px", sm: "16px", lg: "18px" }}
+              fontSize={{ base: "20px", sm: "16px", lg: "18px" }}
               fontWeight="500"
               sx={{
-                width: "80%",
+                width: { base: "100%", md: "80%" },
                 lineHeight: "1.2",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -130,7 +141,7 @@ const CardMinimal = (props) => {
               textOverflow: "ellipsis",
               lineHeight: "1.2",
             }}
-            fontSize={{ base: "10px", md: "12px", lg: "13px" }}
+            fontSize={{ base: "15px", md: "12px", lg: "13px" }}
             fontWeight="400"
           >
             {`${getUserGenderLetter(gender)}${getUserAgeFromNow(
@@ -141,6 +152,8 @@ const CardMinimal = (props) => {
             <PopoverDeletePost
               handleClickButton={onClickPostDelete}
               isLoading={isLoadingDeletePost}
+              title="Eliminar post"
+              message="Se eliminará el post, ¿estás seguro?"
             >
               <IconButton
                 sx={{ color }}
@@ -153,7 +166,10 @@ const CardMinimal = (props) => {
             </PopoverDeletePost>
           )}
         </Flex>
-        <Flex padding="5px 10px" flexDir="column">
+        <Flex
+          padding={{ base: "10px 15px 20px 15px", md: "5px 10px" }}
+          flexDir="column"
+        >
           <Text
             sx={{
               whiteSpace: "pre-wrap",
@@ -167,19 +183,27 @@ const CardMinimal = (props) => {
           </Text>
         </Flex>
         <Flex
-          padding="8px 10px"
+          padding={{ base: "10px 12px", md: "8px 10px" }}
           flexDir="row"
           justifySelf="flex-end"
           justifyContent="space-between"
           alignItems="flex-end"
         >
-          <HStack fontSize="14px" fontWeight="500" spacing="15px" color={color}>
+          <HStack
+            fontSize={{ base: "18px", md: "14px" }}
+            fontWeight="500"
+            spacing="15px"
+            color={color}
+          >
             <HStack alignItems="center" minWidth="30px" spacing="5px">
-              <AiOutlineHeart size="16px" />
+              <Icon
+                as={AiOutlineHeart}
+                boxSize={{ base: "22px", md: "16px" }}
+              />
               <Text>{likes}</Text>
             </HStack>
             <HStack alignItems="center" minWidth="30px" spacing="5px">
-              <FaRegComment size="14px" />
+              <Icon as={FaRegComment} boxSize={{ base: "19px", md: "14px" }} />
               <Text>{comments}</Text>
             </HStack>
           </HStack>
@@ -190,11 +214,14 @@ const CardMinimal = (props) => {
             disabled={isLoadingPostLike}
             icon={
               isLoadingPostLike ? (
-                <Spinner size="sm" />
+                <Spinner size={{ base: "md", md: "sm" }} />
               ) : likedByUser ? (
-                <FcLike />
+                <Icon as={FcLike} boxSize={{ base: "32px", md: "25px" }} />
               ) : (
-                <FcLikePlaceholder />
+                <Icon
+                  as={FcLikePlaceholder}
+                  boxSize={{ base: "32px", md: "25px" }}
+                />
               )
             }
             onClick={(e) => {

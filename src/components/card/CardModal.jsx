@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import {
   Box,
   Flex,
@@ -12,31 +12,36 @@ import {
   ModalCloseButton,
   ModalBody,
   Spinner,
+  Icon,
+  HStack,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiOutlineHeart } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
 
-import { getStringTimeFromNow } from "../utils/date";
+import { getStringTimeFromNow } from "../../utils/date";
 import {
   getUserAgeFromNow,
   getUserGenderLetter,
   userGenderColors,
   getCardDescriptionFontSize,
-} from "../utils/user";
-import useAuth from "../hooks/useAuth";
-import CardComment from "./CardComment";
-import useLoginModal from "../hooks/useLoginModal";
-import { createPostComment } from "../services/postComment";
-import AutoResizeTextArea from "./AutoResizeTextArea";
-import useData from "../hooks/useData";
-import { likePost, deletePost } from "../services/post";
-import useToast from "../hooks/useToast";
-import PopoverDeletePost from "./PopoverDeletePost";
+} from "../../utils/user";
+import useAuth from "../../hooks/useAuth";
+import MemoizedCardComment from "./CardComment";
+import useLoginModal from "../../hooks/useLoginModal";
+import { createPostComment } from "../../services/postComment";
+import AutoResizeTextArea from "../AutoResizeTextArea";
+import useData from "../../hooks/useData";
+import { likePost, deletePost } from "../../services/post";
+import useToast from "../../hooks/useToast";
+import PopoverDeletePost from "../PopoverDeletePost";
+import useWidth from "../../hooks/useWidth";
 
 const CardModal = (props) => {
   const { data: post, openModal, onCloseModal } = props;
   const { handlePostLike, handlePostComment, handlePostDelete } = useData();
+  const { isBaseWidth } = useWidth();
   const { isAuthenticated, userDetails } = useAuth();
   const { setOpenLoginModal } = useLoginModal();
   const [textAreaValue, setTextAreaValue] = useState("");
@@ -186,12 +191,12 @@ const CardModal = (props) => {
               <Flex width="100%" maxHeight="40vh" direction="column" key={id}>
                 <Flex
                   width="100%"
-                  padding={{ base: "5px", md: "10px", lg: "15px" }}
+                  padding={{ base: "15px 10px", md: "10px", lg: "15px" }}
                   bgGradient={headerBgColor}
                   borderBottom="1px solid #dedaaf"
-                  direction="row"
+                  direction={{ base: "column", md: "row" }}
                   justifyContent="space-between"
-                  alignItems="center"
+                  alignItems={{ base: "flex-start", md: "center" }}
                   gap="5px"
                 >
                   <Flex
@@ -201,10 +206,10 @@ const CardModal = (props) => {
                     gap="2px"
                   >
                     <Text
-                      fontSize={{ base: "16px", sm: "18px", lg: "22px" }}
+                      fontSize={{ base: "22px", sm: "18px", lg: "22px" }}
                       fontWeight="500"
                       sx={{
-                        width: "80%",
+                        width: { base: "100%", md: "80%" },
                         lineHeight: "1.2",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -213,24 +218,25 @@ const CardModal = (props) => {
                     >
                       {title}
                     </Text>
-                    <Text
-                      sx={{
-                        minWidth: "max-content",
-                        whiteSpace: "nowrap",
-                        wordBreak: "keep-all",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        lineHeight: "1.2",
-                        color,
-                      }}
-                      fontSize={{ base: "12px", md: "13px", lg: "15px" }}
-                      fontWeight="400"
-                    >
-                      <b>~ </b>
-                      {userPost}
-                    </Text>
+                    {!isBaseWidth && (
+                      <Text
+                        sx={{
+                          minWidth: "max-content",
+                          whiteSpace: "nowrap",
+                          wordBreak: "keep-all",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          lineHeight: "1.2",
+                          color,
+                        }}
+                        fontSize={{ base: "12px", md: "13px", lg: "15px" }}
+                        fontWeight="400"
+                      >
+                        <b>~ </b>
+                        {userPost}
+                      </Text>
+                    )}
                   </Flex>
-
                   <Text
                     sx={{
                       minWidth: "max-content",
@@ -239,13 +245,27 @@ const CardModal = (props) => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       lineHeight: "1.2",
+                      color,
                     }}
-                    fontSize={{ base: "12px", md: "13px", lg: "15px" }}
+                    fontSize={{ base: "15px", md: "13px", lg: "15px" }}
                     fontWeight="400"
                   >
-                    {`${getUserGenderLetter(gender)}${getUserAgeFromNow(
-                      dateBirth
-                    )}, ${getStringTimeFromNow(createdAt)}`}
+                    {isBaseWidth ? (
+                      <>
+                        <b>~ </b>
+                        {`${userPost}, ${getUserGenderLetter(
+                          gender
+                        )}${getUserAgeFromNow(
+                          dateBirth
+                        )}, ${getStringTimeFromNow(createdAt)}`}
+                      </>
+                    ) : (
+                      <>
+                        {`${getUserGenderLetter(gender)}${getUserAgeFromNow(
+                          dateBirth
+                        )}, ${getStringTimeFromNow(createdAt)}`}
+                      </>
+                    )}
                   </Text>
                   {userDetails.username === userPost && (
                     <PopoverDeletePost
@@ -257,14 +277,24 @@ const CardModal = (props) => {
                       <IconButton
                         sx={{ color }}
                         variant="cardButton"
-                        size="xs"
-                        aria-label="Like"
-                        icon={<AiFillDelete size={20} />}
+                        size="sm"
+                        aria-label="Eliminar"
+                        icon={
+                          <Icon
+                            as={AiFillDelete}
+                            boxSize={{ base: "32px", md: "25px" }}
+                          />
+                        }
                       />
                     </PopoverDeletePost>
                   )}
                 </Flex>
-                <Flex padding="20px 15px" flexDir="column">
+                <Flex
+                  padding="20px 15px"
+                  flexDir="column"
+                  minHeight="10vh"
+                  paddingBottom="10px"
+                >
                   <Text
                     sx={{
                       whiteSpace: "pre-wrap",
@@ -284,13 +314,32 @@ const CardModal = (props) => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Text fontSize="15px" fontWeight="400">
-                    {`${likes} ${
-                      likes === 1 ? "like" : "likes"
-                    }, ${commentsNumber} ${
-                      commentsNumber === 1 ? "comentario" : "comentarios"
-                    }`}
-                  </Text>
+                  {isBaseWidth ? (
+                    <HStack spacing="15px">
+                      <HStack alignItems="center" minWidth="30px" spacing="5px">
+                        <Icon
+                          as={AiOutlineHeart}
+                          boxSize={{ base: "22px", md: "16px" }}
+                        />
+                        <Text>{likes}</Text>
+                      </HStack>
+                      <HStack alignItems="center" minWidth="30px" spacing="5px">
+                        <Icon
+                          as={FaRegComment}
+                          boxSize={{ base: "19px", md: "14px" }}
+                        />
+                        <Text>{commentsNumber}</Text>
+                      </HStack>
+                    </HStack>
+                  ) : (
+                    <Text fontSize="15px" fontWeight="400">
+                      {`${likes} ${
+                        likes === 1 ? "like" : "likes"
+                      }, ${commentsNumber} ${
+                        commentsNumber === 1 ? "comentario" : "comentarios"
+                      }`}
+                    </Text>
+                  )}
                   <IconButton
                     variant="cardButton"
                     size="sm"
@@ -298,11 +347,17 @@ const CardModal = (props) => {
                     disabled={isLoadingPostLike}
                     icon={
                       isLoadingPostLike ? (
-                        <Spinner size="sm" />
+                        <Spinner size={{ base: "md", md: "sm" }} />
                       ) : likedByUser ? (
-                        <FcLike />
+                        <Icon
+                          as={FcLike}
+                          boxSize={{ base: "32px", md: "25px" }}
+                        />
                       ) : (
-                        <FcLikePlaceholder />
+                        <Icon
+                          as={FcLikePlaceholder}
+                          boxSize={{ base: "32px", md: "25px" }}
+                        />
                       )
                     }
                     onClick={() =>
@@ -325,7 +380,7 @@ const CardModal = (props) => {
                 ref={commentsContainerRef}
               >
                 {comments.map((d, i) => (
-                  <CardComment
+                  <MemoizedCardComment
                     key={i}
                     data={d}
                     handleCommentLike={handlePostCommentLike}
@@ -365,7 +420,8 @@ const CardModal = (props) => {
                   maxLength={350}
                 />
                 <Button
-                  minWidth="80px"
+                  fontSize={{ base: "15px", md: "14px" }}
+                  minWidth={{ base: "90px", md: "80px" }}
                   variant="transparent"
                   isLoading={isLoadingPostComment}
                   onClick={() =>
@@ -398,4 +454,6 @@ CardModal.defaultProps = {
   onCloseModal: undefined,
 };
 
-export default CardModal;
+const MemoizedCardModal = memo(CardModal);
+
+export default MemoizedCardModal;

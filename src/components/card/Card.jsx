@@ -3,14 +3,14 @@ import { Box, Flex, Text, IconButton, Divider, Button } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 
-import { getStringTimeFromNow } from "../utils/date";
-import { getUserAgeFromNow, getUserGenderLetter } from "../utils/user";
-import { likePost } from "../services/post";
-import useAuth from "../hooks/useAuth";
-import CardComment from "./CardComment";
-import useLoginModal from "../hooks/useLoginModal";
-import { createPostComment } from "../services/postComment";
-import AutoResizeTextArea from "./AutoResizeTextArea";
+import { getStringTimeFromNow } from "../../utils/date";
+import { getUserAgeFromNow, getUserGenderLetter } from "../../utils/user";
+import { likePost } from "../../services/post";
+import useAuth from "../../hooks/useAuth";
+import MemoizedCardComment from "./CardComment";
+import useLoginModal from "../../hooks/useLoginModal";
+import { createPostComment } from "../../services/postComment";
+import AutoResizeTextArea from "../AutoResizeTextArea";
 
 const Card = (props) => {
   const {
@@ -188,7 +188,7 @@ const Card = (props) => {
         direction="column"
       >
         {postComments.map((d, i) => (
-          <CardComment key={i} data={d} />
+          <MemoizedCardComment key={i} data={d} />
         ))}
       </Flex>
       <Divider orientation="horizontal" />

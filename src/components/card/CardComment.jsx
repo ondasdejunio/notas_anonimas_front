@@ -3,6 +3,7 @@ import {
   Divider,
   Flex,
   HStack,
+  Icon,
   IconButton,
   Spinner,
   Text,
@@ -11,14 +12,15 @@ import PropTypes from "prop-types";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import { AiFillDelete } from "react-icons/ai";
 
-import { getStringTimeFromNow } from "../utils/date";
-import { getUserAgeFromNow, getUserGenderLetter } from "../utils/user";
-import useAuth from "../hooks/useAuth";
-import useLoginModal from "../hooks/useLoginModal";
-import { useState } from "react";
-import { deletePostComment, likePostComment } from "../services/postComment";
-import PopoverDeletePost from "./PopoverDeletePost";
-import useToast from "../hooks/useToast";
+import { getStringTimeFromNow } from "../../utils/date";
+import { getUserAgeFromNow, getUserGenderLetter } from "../../utils/user";
+import useAuth from "../../hooks/useAuth";
+import useLoginModal from "../../hooks/useLoginModal";
+import { memo, useState } from "react";
+import { deletePostComment, likePostComment } from "../../services/postComment";
+import PopoverDeletePost from "../PopoverDeletePost";
+import useToast from "../../hooks/useToast";
+import useWidth from "../../hooks/useWidth";
 
 const CardComment = (props) => {
   const {
@@ -40,6 +42,7 @@ const CardComment = (props) => {
     useState(false);
   const [isLoadingDeletePostComment, setIsLoadingDeletePostComment] =
     useState(false);
+  const { isBaseWidth } = useWidth();
 
   const onClickLikePostComment = () => {
     setIsLoadingPostCommentLike(true);
@@ -71,7 +74,7 @@ const CardComment = (props) => {
 
   return (
     <>
-      <Box padding="5px 10px">
+      <Box padding={{ base: "12px 15px 10px 15px", md: "5px 10px" }}>
         <HStack paddingBottom="2px" alignItems="flex-start" spacing="5px">
           <Text lineHeight="1.3" fontWeight="500">
             {user.username}:
@@ -113,6 +116,39 @@ const CardComment = (props) => {
                 user.dateBirth
               )}, ${getStringTimeFromNow(createdAt)}`}
             </Text>
+          </HStack>
+          <HStack spacing="3px">
+            <Text
+              lineHeight="1"
+              minWidth={!isBaseWidth ? "30px" : "min-content"}
+              fontSize="13px"
+              fontWeight="500"
+            >
+              {likes} {!isBaseWidth ? (likes === 1 ? "like" : "likes") : ""}
+            </Text>
+            <IconButton
+              variant="cardButton"
+              size="xs"
+              aria-label="Like"
+              disabled={isLoadingPostCommentLike}
+              icon={
+                isLoadingPostCommentLike ? (
+                  <Spinner size="sm" />
+                ) : likedByUser ? (
+                  <Icon as={FcLike} boxSize={{ base: "22px", md: "20px" }} />
+                ) : (
+                  <Icon
+                    as={FcLikePlaceholder}
+                    boxSize={{ base: "22px", md: "20px" }}
+                  />
+                )
+              }
+              onClick={() =>
+                isAuthenticated
+                  ? onClickLikePostComment()
+                  : setOpenLoginModal(true)
+              }
+            />
             {userDetails.username === user.username && (
               <PopoverDeletePost
                 handleClickButton={onClickPostCommentDelete}
@@ -124,43 +160,21 @@ const CardComment = (props) => {
                   sx={{ color: "gray.500" }}
                   variant="cardButton"
                   size="xs"
-                  aria-label="Like"
+                  aria-label="Eliminar"
                   icon={
                     isLoadingDeletePostComment ? (
                       <Spinner size="sm" />
                     ) : (
-                      <AiFillDelete size={18} />
+                      <Icon
+                        as={AiFillDelete}
+                        boxSize={{ base: "22px", md: "20px" }}
+                      />
                     )
                   }
                   onClick={(e) => e.stopPropagation()}
                 />
               </PopoverDeletePost>
             )}
-          </HStack>
-          <HStack>
-            <IconButton
-              variant="cardButton"
-              size="xs"
-              aria-label="Like"
-              disabled={isLoadingPostCommentLike}
-              icon={
-                isLoadingPostCommentLike ? (
-                  <Spinner size="xs" />
-                ) : likedByUser ? (
-                  <FcLike fontSize="20px" />
-                ) : (
-                  <FcLikePlaceholder fontSize="20px" />
-                )
-              }
-              onClick={() =>
-                isAuthenticated
-                  ? onClickLikePostComment()
-                  : setOpenLoginModal(true)
-              }
-            />
-            <Text lineHeight="1" width="40px" fontSize="13px" fontWeight="500">
-              {likes} {likes === 1 ? "like" : "likes"}
-            </Text>
           </HStack>
         </Flex>
       </Box>
@@ -181,4 +195,6 @@ CardComment.defaultProps = {
   handlePostCommentDelete: undefined,
 };
 
-export default CardComment;
+const MemoizedCardComment = memo(CardComment);
+
+export default MemoizedCardComment;

@@ -25,7 +25,7 @@ const DataContextProvider = (props) => {
     setIsLoadingState(params.page);
     getPosts(params)
       .then((res) => {
-        setData((prevData) => [...prevData, ...res.data]);
+        setData(params.page === 0 ? res.data : [...data, ...res.data]);
         setIsLoadingState(params.page);
         setHasMoreData(res.data.length === params.size);
       })
@@ -39,7 +39,7 @@ const DataContextProvider = (props) => {
     setIsLoadingState(params.page);
     getPostsByUser(params)
       .then((res) => {
-        setData((prevData) => [...prevData, ...res.data]);
+        setData(params.page === 0 ? res.data : [...data, ...res.data]);
         setIsLoadingState(params.page);
         setHasMoreData(res.data.length === params.size);
       })

@@ -3,12 +3,12 @@ import { Heading, Text, Box, Flex, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-import Form from "../../components/Form";
-import { loginUser } from "../../services/user";
-import useToast from "../../hooks/useToast";
-import useLoading from "../../hooks/useLoading";
-import setTabTitle from "../../utils/tabTitle";
-import useAuth from "../../hooks/useAuth";
+import Form from "../components/Form";
+import { loginUser } from "../services/user";
+import useToast from "../hooks/useToast";
+import useLoading from "../hooks/useLoading";
+import setTabTitle from "../utils/tabTitle";
+import useAuth from "../hooks/useAuth";
 
 const LoginPage = () => {
   const { isLoading, setIsLoading } = useLoading();

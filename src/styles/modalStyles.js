@@ -25,9 +25,9 @@ const card = definePartsStyle({
     bg: "blackAlpha.600",
   },
   dialog: {
-    maxWidth: ["98%", "95%", "80%", "60%"],
+    maxWidth: ["100%", "95%", "80%", "60%"],
     minWidth: "60%",
-    padding: { base: "20px 15px", md: "30px 10px", lg: "35px 20px" },
+    padding: { base: "10px", md: "30px 10px", lg: "35px 20px" },
     bg: `transparent`,
     boxShadow: "none",
   },

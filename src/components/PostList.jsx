@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import { Grid, Flex, Heading, Button, IconButton, Box } from "@chakra-ui/react";
 import { GrAdd } from "react-icons/gr";
 
-import CardMinimal from "../components/CardMinimal";
-import setTabTitle from "../utils/tabTitle";
+import CardMinimal from "./card/CardMinimal";
 import useWidth from "../hooks/useWidth";
 import useAuth from "../hooks/useAuth";
 import useLoginModal from "../hooks/useLoginModal";
 import useData from "../hooks/useData";
-import CardModal from "../components/CardModal";
-import NewCardModal from "../components/NewCardModal";
+import MemoizedCardModal from "./card/CardModal";
+import NewCardModal from "./card/NewCardModal";
 import { getPostComments } from "../services/postComment";
 import LoadingWrapper from "../components/LoadingWrapper";
 import NoData from "../components/NoData";
@@ -39,10 +38,6 @@ const PostList = (props) => {
   const size = params.size;
 
   useEffect(() => {
-    setTabTitle("Más recientes");
-  }, []);
-
-  useEffect(() => {
     if (data.length !== firstHalf.length + secondHalf.length) {
       if (data.length > 5) {
         if (page === 0) {
@@ -51,12 +46,12 @@ const PostList = (props) => {
         } else {
           const startIndex = page * size;
           const endIndex = startIndex + size;
-          setFirstHalf((arr) => [
-            ...arr,
+          setFirstHalf([
+            ...firstHalf,
             ...data.slice(startIndex, startIndex + size / 2),
           ]);
-          setSecondHalf((arr) => [
-            ...arr,
+          setSecondHalf([
+            ...secondHalf,
             ...data.slice(startIndex + size / 2, endIndex),
           ]);
         }
@@ -66,7 +61,8 @@ const PostList = (props) => {
 
   useEffect(() => {
     if (page === 0) {
-      setData([]);
+      setFirstHalf([]);
+      setSecondHalf([]);
     }
     if (!getPostsByUser) {
       getPostRows({ ...params, page });
@@ -91,15 +87,14 @@ const PostList = (props) => {
       <LoadingWrapper isLoading={isLoadingInitialData}>
         <Flex width="100%" direction="column" gap="10px" height="100%">
           <Flex
-            minHeight="40px"
-            // marginBottom="10px"
+            minHeight="45px"
             width="100%"
             justifyContent="space-between"
             alignItems="center"
           >
             <Heading
               as="h1"
-              size={{ base: "md", lg: "lg" }}
+              size={{ base: "lg", lg: "lg" }}
               color="secondary.200"
             >
               {title}
@@ -110,8 +105,9 @@ const PostList = (props) => {
                   margin="0px"
                   aria-label="Nuevo post"
                   variant="tertiary"
-                  size="md"
-                  icon={<GrAdd size={18} />}
+                  size="lg"
+                  disabled={isLoadingInitialData}
+                  icon={<GrAdd size={20} />}
                   onClick={() =>
                     isAuthenticated
                       ? setOpenNewCardModal(true)
@@ -128,6 +124,7 @@ const PostList = (props) => {
                   leftIcon={<GrAdd size={18} />}
                   variant="tertiary"
                   aria-label="Nuevo post"
+                  disabled={isLoadingInitialData}
                   size="md"
                   onClick={() =>
                     isAuthenticated
@@ -200,7 +197,7 @@ const PostList = (props) => {
               !isLoadingInitialData && <NoData />
             )}
           </Flex>
-          {hasMoreData && (
+          {!isLoadingInitialData && hasMoreData && (
             <Button
               onClick={() => setPage((n) => n + 1)}
               sx={{
@@ -225,7 +222,7 @@ const PostList = (props) => {
           )}
         </Flex>
       </LoadingWrapper>
-      <CardModal
+      <MemoizedCardModal
         data={selectedCard}
         openModal={openCardModal}
         onCloseModal={() => {

@@ -34,10 +34,10 @@ export const userGenderColors = {
 export const getCardDescriptionFontSize = (text) => {
   const length = text.length;
   if (length <= 150) {
-    return { base: "18px", md: "20px", lg: "24px" };
+    return { base: "24px", md: "20px", lg: "24px" };
   } else if (length <= 300) {
-    return { base: "16px", md: "16px", lg: "18px" };
+    return { base: "20px", md: "16px", lg: "18px" };
   } else {
-    return { base: "14px", md: "16px", lg: "17px" };
+    return { base: "18px", md: "16px", lg: "17px" };
   }
 };

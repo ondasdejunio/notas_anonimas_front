@@ -6,21 +6,7 @@ const LoadingWrapper = (props) => {
 
   return (
     <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
-      <Box
-        sx={{
-          height: "100%",
-          width: "100%",
-          ...(isLoading
-            ? {
-                WebkitFilter: "blur(1px)",
-                filter: "blur(1px)",
-                transition: "all 0.1s",
-              }
-            : {}),
-        }}
-      >
-        {children}
-      </Box>
+      {children}
       {isLoading && (
         <Flex
           gap="10px"
@@ -34,11 +20,17 @@ const LoadingWrapper = (props) => {
             flexDirection: "column",
             gap: "5px",
             backgroundColor: darkenBackground
-              ? "rgba(0, 0, 0, 0.5)"
+              ? "rgba(0, 0, 0, 0.6)"
               : undefined,
           }}
         >
-          <Text sx={{ fontWeight: "400", color: "primary.50", fontSize: "md" }}>
+          <Text
+            sx={{
+              fontWeight: "400",
+              color: "primary.50",
+              fontSize: { base: "lg", md: "md" },
+            }}
+          >
             Cargando...
           </Text>
           <Progress

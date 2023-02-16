@@ -7,7 +7,7 @@ const FooterApp = () => {
         sx={{
           fontWeight: "400",
           color: "primary.200",
-          fontSize: { base: "xs", md: "sm" },
+          fontSize: "sm",
         }}
       >
         Creado con &lt;3 por{" "}
