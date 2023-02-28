@@ -21,7 +21,7 @@ import useToast from "../../hooks/useToast";
 import { createPost } from "../../services/post";
 import { getCardDescriptionFontSize, userGenderColors } from "../../utils/user";
 import useAuth from "../../hooks/useAuth";
-import AutoResizeTextArea from "../AutoResizeTextArea";
+import AutoResizeTextArea from "../common/AutoResizeTextArea";
 
 const NewCardModal = (props) => {
   const { onCreatedPost, openModal, onCloseModal } = props;
@@ -51,7 +51,7 @@ const NewCardModal = (props) => {
         successToast("¡Publicación creada!");
         resetForm();
         setIsLoading(false);
-        onCreatedPost(true, r.data.post);
+        onCreatedPost(r.data.post);
       })
       .catch((e) => {
         const { response = null } = e;

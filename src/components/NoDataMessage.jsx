@@ -1,6 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 
-const NoData = () => {
+const NoDataMessage = () => {
   return (
     <Flex
       width="100%"
@@ -39,4 +39,4 @@ const NoData = () => {
   );
 };
 
-export default NoData;
+export default NoDataMessage;

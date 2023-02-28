@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Flex,
@@ -19,18 +20,19 @@ import {
   userGenderColors,
 } from "../../utils/user";
 import useAuth from "../../hooks/useAuth";
-import useLoginModal from "../../hooks/useLoginModal";
-import useData from "../../hooks/useData";
-import { useState } from "react";
 import { deletePost, likePost } from "../../services/post";
-import PopoverDeletePost from "../PopoverDeletePost";
+import DeletePopover from "../common/DeletePopover";
 import useToast from "../../hooks/useToast";
 import useWidth from "../../hooks/useWidth";
 
 const CardMinimal = (props) => {
-  const { data = {} } = props;
-
-  const { handlePostLike, handlePostDelete } = useData();
+  const {
+    data = {},
+    onClick,
+    handlePostLike,
+    handlePostDelete,
+    onOpenLoginModal,
+  } = props;
 
   const {
     id = null,
@@ -43,7 +45,6 @@ const CardMinimal = (props) => {
     comments = 0,
   } = data;
   const { isAuthenticated, userDetails } = useAuth();
-  const { setOpenLoginModal } = useLoginModal();
   const [isLoadingPostLike, setIsLoadingPostLike] = useState(false);
   const [isLoadingDeletePost, setIsLoadingDeletePost] = useState(false);
   const { successToast, errorToast } = useToast();
@@ -103,6 +104,12 @@ const CardMinimal = (props) => {
       overflow="hidden"
       height="fit-content"
       boxShadow="xl"
+      alignSelf="center"
+      cursor="pointer"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick(id);
+      }}
     >
       <Flex width="100%" direction="column" key={id}>
         <Flex
@@ -139,7 +146,7 @@ const CardMinimal = (props) => {
               {title}
             </Text>
             {isBaseWidth && userDetails.username === userPost && (
-              <PopoverDeletePost
+              <DeletePopover
                 handleClickButton={onClickPostDelete}
                 isLoading={isLoadingDeletePost}
                 title="Eliminar post"
@@ -162,7 +169,7 @@ const CardMinimal = (props) => {
                   }
                   onClick={(e) => e.stopPropagation()}
                 />
-              </PopoverDeletePost>
+              </DeletePopover>
             )}
           </Flex>
           <Text
@@ -182,7 +189,7 @@ const CardMinimal = (props) => {
             )}, ${getStringTimeFromNow(createdAt)}`}
           </Text>
           {!isBaseWidth && userDetails.username === userPost && (
-            <PopoverDeletePost
+            <DeletePopover
               handleClickButton={onClickPostDelete}
               isLoading={isLoadingDeletePost}
               title="Eliminar post"
@@ -205,7 +212,7 @@ const CardMinimal = (props) => {
                 }
                 onClick={(e) => e.stopPropagation()}
               />
-            </PopoverDeletePost>
+            </DeletePopover>
           )}
         </Flex>
         <Flex
@@ -272,7 +279,7 @@ const CardMinimal = (props) => {
               if (isAuthenticated) {
                 return onClickPostLike();
               }
-              return setOpenLoginModal(true);
+              return onOpenLoginModal();
             }}
           />
         </Flex>
@@ -283,10 +290,18 @@ const CardMinimal = (props) => {
 
 CardMinimal.propTypes = {
   data: PropTypes.object,
+  onClick: PropTypes.func,
+  handlePostLike: PropTypes.func,
+  handlePostDelete: PropTypes.func,
+  onOpenLoginModal: PropTypes.func,
 };
 
 CardMinimal.defaultProps = {
   data: {},
+  onClick: undefined,
+  handlePostLike: undefined,
+  handlePostDelete: undefined,
+  onOpenLoginModal: undefined,
 };
 
 export default CardMinimal;

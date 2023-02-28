@@ -2,7 +2,7 @@ import { IconButton } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { AiOutlineArrowUp } from "react-icons/ai";
 
-const ScrollToTop = () => {
+const ScrollToTopButton = () => {
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
@@ -47,4 +47,4 @@ const ScrollToTop = () => {
     );
   }
 };
-export default ScrollToTop;
+export default ScrollToTopButton;

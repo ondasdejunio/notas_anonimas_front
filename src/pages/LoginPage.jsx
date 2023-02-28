@@ -3,7 +3,7 @@ import { Heading, Text, Box, Flex, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-import Form from "../components/Form";
+import Form from "../components/common/Form";
 import { loginUser } from "../services/user";
 import useToast from "../hooks/useToast";
 import useLoading from "../hooks/useLoading";
@@ -35,7 +35,7 @@ const LoginPage = () => {
     {
       id: "username",
       label: "Nombre de usuario",
-      placeholder: "mataperras3000",
+      placeholder: "",
       type: "text",
     },
     {

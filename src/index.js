@@ -9,7 +9,6 @@ import { ToastContextProvider } from "./providers/ToastProvider";
 import Router from "./config/routes";
 import theme from "./styles/theme";
 import { AuthContextProvider } from "./providers/AuthProvider";
-import { DataContextProvider } from "./providers/DataProvider";
 import { LoadingContextProvider } from "./providers/LoadingProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,15 +16,13 @@ root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <LoadingContextProvider>
-        <DataContextProvider>
-          <AuthContextProvider>
-            <ToastContextProvider>
-              <WidthContextProvider>
-                <Router />
-              </WidthContextProvider>
-            </ToastContextProvider>
-          </AuthContextProvider>
-        </DataContextProvider>
+        <AuthContextProvider>
+          <ToastContextProvider>
+            <WidthContextProvider>
+              <Router />
+            </WidthContextProvider>
+          </ToastContextProvider>
+        </AuthContextProvider>
       </LoadingContextProvider>
     </ChakraProvider>
   </React.StrictMode>

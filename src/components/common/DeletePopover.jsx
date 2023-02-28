@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const PopoverDeletePost = (props) => {
+const DeletePopover = (props) => {
   const { handleClickButton, children, isLoading, title, message } = props;
   const initialFocusRef = useRef();
 
@@ -87,7 +87,7 @@ const PopoverDeletePost = (props) => {
   );
 };
 
-PopoverDeletePost.propTypes = {
+DeletePopover.propTypes = {
   isLoading: PropTypes.bool,
   handleClickButton: PropTypes.func,
   children: PropTypes.any,
@@ -95,7 +95,7 @@ PopoverDeletePost.propTypes = {
   message: PropTypes.string,
 };
 
-PopoverDeletePost.defaultProps = {
+DeletePopover.defaultProps = {
   isLoading: false,
   handleClickButton: undefined,
   children: undefined,
@@ -103,4 +103,4 @@ PopoverDeletePost.defaultProps = {
   message: undefined,
 };
 
-export default PopoverDeletePost;
+export default DeletePopover;

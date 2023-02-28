@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Divider,
@@ -15,10 +16,8 @@ import { AiFillDelete } from "react-icons/ai";
 import { getStringTimeFromNow } from "../../utils/date";
 import { getUserAgeFromNow, getUserGenderLetter } from "../../utils/user";
 import useAuth from "../../hooks/useAuth";
-import useLoginModal from "../../hooks/useLoginModal";
-import { memo, useState } from "react";
 import { deletePostComment, likePostComment } from "../../services/postComment";
-import PopoverDeletePost from "../PopoverDeletePost";
+import DeletePopover from "../common/DeletePopover";
 import useToast from "../../hooks/useToast";
 import useWidth from "../../hooks/useWidth";
 
@@ -34,10 +33,10 @@ const CardComment = (props) => {
     } = {},
     handleCommentLike,
     handlePostCommentDelete,
+    onOpenLoginModal,
   } = props;
   const { isAuthenticated, userDetails } = useAuth();
   const { successToast, errorToast } = useToast();
-  const { setOpenLoginModal } = useLoginModal();
   const [isLoadingPostCommentLike, setIsLoadingPostCommentLike] =
     useState(false);
   const [isLoadingDeletePostComment, setIsLoadingDeletePostComment] =
@@ -143,13 +142,11 @@ const CardComment = (props) => {
                 )
               }
               onClick={() =>
-                isAuthenticated
-                  ? onClickLikePostComment()
-                  : setOpenLoginModal(true)
+                isAuthenticated ? onClickLikePostComment() : onOpenLoginModal()
               }
             />
             {userDetails.username === user.username && (
-              <PopoverDeletePost
+              <DeletePopover
                 handleClickButton={onClickPostCommentDelete}
                 isLoading={isLoadingDeletePostComment}
                 title="Eliminar comentario"
@@ -172,7 +169,7 @@ const CardComment = (props) => {
                   }
                   onClick={(e) => e.stopPropagation()}
                 />
-              </PopoverDeletePost>
+              </DeletePopover>
             )}
           </HStack>
         </Flex>
@@ -186,14 +183,14 @@ CardComment.propTypes = {
   data: PropTypes.object,
   handleCommentLike: PropTypes.func,
   handlePostCommentDelete: PropTypes.func,
+  onOpenLoginModal: PropTypes.func,
 };
 
 CardComment.defaultProps = {
   data: {},
   handleCommentLike: undefined,
   handlePostCommentDelete: undefined,
+  onOpenLoginModal: undefined,
 };
 
-const MemoizedCardComment = memo(CardComment);
-
-export default MemoizedCardComment;
+export default CardComment;

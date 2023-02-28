@@ -3,7 +3,7 @@ import { Heading, Text, Box, Flex, VStack } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
-import Form from "../components/Form";
+import Form from "../components/common/Form";
 import { createUser } from "../services/user";
 import useToast from "../hooks/useToast";
 import useLoading from "../hooks/useLoading";
@@ -69,7 +69,7 @@ const RegisterPage = () => {
     {
       id: "username",
       label: "Nombre de usuario",
-      placeholder: "mataperras3000",
+      placeholder: "",
       type: "text",
       required: true,
       grid: { base: 6, md: 3, lg: 3 },

@@ -4,7 +4,7 @@ import { Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import { HiUser } from "react-icons/hi";
 import * as Yup from "yup";
 
-import Form from "../components/Form";
+import Form from "../components/common/Form";
 import useToast from "../hooks/useToast";
 import useLoading from "../hooks/useLoading";
 import setTabTitle from "../utils/tabTitle";

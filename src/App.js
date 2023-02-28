@@ -3,13 +3,9 @@ import { Grid, GridItem, Box, Flex } from "@chakra-ui/react";
 
 import HeaderApp from "./components/layout/HeaderApp";
 import FooterApp from "./components/layout/FooterApp";
-import { LoginModalContextProvider } from "./providers/LoginModalProvider";
-import useData from "./hooks/useData";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopButton from "./components/common/ScrollToTopButton";
 
 function App() {
-  const { listRef } = useData();
-
   return (
     <>
       <Flex
@@ -25,23 +21,20 @@ function App() {
             <HeaderApp />
           </GridItem>
           <GridItem width="100%" h="100%">
-            <LoginModalContextProvider>
-              <Box
-                width="100%"
-                padding={{ base: "20px 15px", md: "30px" }}
-                bg="primary.500"
-                minH="70vh"
-                h="100%"
-                borderRadius={{
-                  base: "10px 10px 0px 0px",
-                  md: "10px 0px 0px 0px",
-                }}
-                ref={listRef}
-              >
-                <ScrollToTop />
-                <Outlet />
-              </Box>
-            </LoginModalContextProvider>
+            <Box
+              width="100%"
+              padding={{ base: "20px 15px", md: "30px" }}
+              bg="primary.500"
+              minH="70vh"
+              h="100%"
+              borderRadius={{
+                base: "10px 10px 0px 0px",
+                md: "10px 0px 0px 0px",
+              }}
+            >
+              <ScrollToTopButton />
+              <Outlet />
+            </Box>
           </GridItem>
           <GridItem h="fit-content">
             <Box

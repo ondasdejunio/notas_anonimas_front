@@ -13,11 +13,11 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 const LoginModal = (props) => {
-  const { isOpen, onClose } = props;
+  const { openModal, onCloseModal } = props;
   const navigate = useNavigate();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered variant="alert">
+    <Modal isOpen={openModal} onClose={onCloseModal} isCentered variant="alert">
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton
@@ -77,13 +77,13 @@ const LoginModal = (props) => {
 };
 
 LoginModal.propTypes = {
-  isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
+  openModal: PropTypes.bool,
+  onCloseModal: PropTypes.func,
 };
 
 LoginModal.defaultProps = {
-  isOpen: false,
-  onClose: undefined,
+  openModal: false,
+  onCloseModal: undefined,
 };
 
 export default LoginModal;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, memo } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Box,
   Flex,
@@ -29,26 +29,26 @@ import {
 } from "../../utils/user";
 import useAuth from "../../hooks/useAuth";
 import MemoizedCardComment from "./CardComment";
-import useLoginModal from "../../hooks/useLoginModal";
 import { createPostComment } from "../../services/postComment";
-import AutoResizeTextArea from "../AutoResizeTextArea";
-import useData from "../../hooks/useData";
+import AutoResizeTextArea from "../common/AutoResizeTextArea";
 import { likePost, deletePost } from "../../services/post";
 import useToast from "../../hooks/useToast";
-import PopoverDeletePost from "../PopoverDeletePost";
+import DeletePopover from "../common/DeletePopover";
 import useWidth from "../../hooks/useWidth";
 
 const CardModal = (props) => {
-  const { data: post, openModal, onCloseModal } = props;
   const {
+    data: post,
+    openModal,
+    onCloseModal,
     handlePostLike,
     handlePostComment,
     handlePostDelete,
     handlePostCommentDelete,
-  } = useData();
+    onOpenLoginModal,
+  } = props;
   const { isBaseWidth } = useWidth();
   const { isAuthenticated, userDetails } = useAuth();
-  const { setOpenLoginModal } = useLoginModal();
   const [textAreaValue, setTextAreaValue] = useState("");
   const [data, setData] = useState(post);
   const [isLoadingPostComment, setIsLoadingPostComment] = useState(false);
@@ -232,7 +232,7 @@ const CardModal = (props) => {
                         {title}
                       </Text>
                       {isBaseWidth && userDetails.username === userPost && (
-                        <PopoverDeletePost
+                        <DeletePopover
                           handleClickButton={onClickPostDelete}
                           isLoading={isLoadingDeletePost}
                           title="Eliminar post"
@@ -254,7 +254,7 @@ const CardModal = (props) => {
                               )
                             }
                           />
-                        </PopoverDeletePost>
+                        </DeletePopover>
                       )}
                     </Flex>
                     {!isBaseWidth && (
@@ -307,7 +307,7 @@ const CardModal = (props) => {
                     )}
                   </Text>
                   {!isBaseWidth && userDetails.username === userPost && (
-                    <PopoverDeletePost
+                    <DeletePopover
                       handleClickButton={onClickPostDelete}
                       isLoading={isLoadingDeletePost}
                       title="Eliminar post"
@@ -329,7 +329,7 @@ const CardModal = (props) => {
                           )
                         }
                       />
-                    </PopoverDeletePost>
+                    </DeletePopover>
                   )}
                 </Flex>
                 <Flex
@@ -407,9 +407,7 @@ const CardModal = (props) => {
                       )
                     }
                     onClick={() =>
-                      isAuthenticated
-                        ? onClickPostLike()
-                        : setOpenLoginModal(true)
+                      isAuthenticated ? onClickPostLike() : onOpenLoginModal()
                     }
                   />
                 </Flex>
@@ -470,7 +468,7 @@ const CardModal = (props) => {
                   variant="transparent"
                   isLoading={isLoadingPostComment}
                   onClick={() =>
-                    isAuthenticated ? handleComment() : setOpenLoginModal(true)
+                    isAuthenticated ? handleComment() : onOpenLoginModal()
                   }
                   disabled={isLoadingPostComment || !textAreaValue}
                 >
@@ -490,6 +488,11 @@ CardModal.propTypes = {
   dataProp: PropTypes.object,
   openModal: PropTypes.bool,
   onCloseModal: PropTypes.func,
+  handlePostLike: PropTypes.func,
+  handlePostComment: PropTypes.func,
+  handlePostDelete: PropTypes.func,
+  handlePostCommentDelete: PropTypes.func,
+  onOpenLoginModal: PropTypes.func,
 };
 
 CardModal.defaultProps = {
@@ -497,8 +500,11 @@ CardModal.defaultProps = {
   dataProp: {},
   openModal: false,
   onCloseModal: undefined,
+  handlePostLike: undefined,
+  handlePostComment: undefined,
+  handlePostDelete: undefined,
+  handlePostCommentDelete: undefined,
+  onOpenLoginModal: undefined,
 };
 
-const MemoizedCardModal = memo(CardModal);
-
-export default MemoizedCardModal;
+export default CardModal;
