@@ -36,20 +36,22 @@ const PostsPage = (props) => {
   }, [data.page, params]);
 
   useEffect(() => {
-    if (data.page === 0) {
-      setFirstHalf(data.rows.slice(0, data.rows.length / 2));
-      setSecondHalf(data.rows.slice(data.rows.length / 2));
-    } else {
-      const startIndex = data.page * params.size;
-      const endIndex = startIndex + params.size;
-      setFirstHalf([
-        ...firstHalf,
-        ...data.rows.slice(startIndex, startIndex + params.size / 2),
-      ]);
-      setSecondHalf([
-        ...secondHalf,
-        ...data.rows.slice(startIndex + params.size / 2, endIndex),
-      ]);
+    if (data.rows.length > 3) {
+      if (data.page === 0) {
+        setFirstHalf(data.rows.slice(0, data.rows.length / 2));
+        setSecondHalf(data.rows.slice(data.rows.length / 2));
+      } else {
+        const startIndex = data.page * params.size;
+        const endIndex = startIndex + params.size;
+        setFirstHalf([
+          ...firstHalf,
+          ...data.rows.slice(startIndex, startIndex + params.size / 2),
+        ]);
+        setSecondHalf([
+          ...secondHalf,
+          ...data.rows.slice(startIndex + params.size / 2, endIndex),
+        ]);
+      }
     }
   }, [data.rows]);
 
@@ -148,6 +150,14 @@ const PostsPage = (props) => {
     setOpenLoginModal(true);
   };
 
+  const getCardMinimalProps = (d) => ({
+    data: d,
+    onClick: () => onClickCard(d.id),
+    handlePostLike,
+    handlePostDelete,
+    onOpenLoginModal,
+  });
+
   return (
     <>
       <PostsHeader
@@ -162,30 +172,31 @@ const PostsPage = (props) => {
         hasMoreData={hasMoreData}
         onClickLoadButton={onClickLoadButton}
       >
-        <Flex width="100%" direction="column" gap="20px">
-          {firstHalf.map((d, i) => (
-            <CardMinimal
-              key={i}
-              data={d}
-              onClick={() => onClickCard(d.id)}
-              handlePostLike={handlePostLike}
-              handlePostDelete={handlePostDelete}
-              onOpenLoginModal={onOpenLoginModal}
-            />
-          ))}
-        </Flex>
-        <Flex width="100%" direction="column" gap="20px">
-          {secondHalf.map((d, i) => (
-            <CardMinimal
-              key={i}
-              data={d}
-              onClick={() => onClickCard(d.id)}
-              handlePostLike={handlePostLike}
-              handlePostDelete={handlePostDelete}
-              onOpenLoginModal={onOpenLoginModal}
-            />
-          ))}
-        </Flex>
+        {data.rows.length > 3 ? (
+          <>
+            <Flex width="100%" direction="column" gap="20px">
+              {firstHalf.map((d, i) => (
+                <CardMinimal key={i} {...getCardMinimalProps(d)} />
+              ))}
+            </Flex>
+            <Flex width="100%" direction="column" gap="20px">
+              {secondHalf.map((d, i) => (
+                <CardMinimal key={i} {...getCardMinimalProps(d)} />
+              ))}
+            </Flex>
+          </>
+        ) : (
+          <Flex
+            width="100%"
+            direction="column"
+            gap="20px"
+            justifyContent="center"
+          >
+            {data.rows.map((d, i) => (
+              <CardMinimal key={i} {...getCardMinimalProps(d)} />
+            ))}
+          </Flex>
+        )}
       </PostsContent>
       <CardModal
         data={selectedCard}

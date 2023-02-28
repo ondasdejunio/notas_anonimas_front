@@ -65,7 +65,9 @@ const Form = (props) => {
                   name: id,
                   onChange: (e) => {
                     handleChange(e);
-                    onChange({ ...values, [id]: e.target.value });
+                    if (onChange) {
+                      onChange({ ...values, [id]: e.target.value });
+                    }
                   },
                   onBlur: handleBlur,
                   value: values[id],
