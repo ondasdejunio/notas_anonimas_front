@@ -1,71 +1,39 @@
-# Getting Started with Create React App
+# Notas Anónimas (Front)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web frontend de una red social basada en publicaciones. Desarrollada con React JS utilizando Chakra UI, Formik, Moment JS, React Router DOM y axios.
 
-## Available Scripts
+## Funciones
 
-In the project directory, you can run:
+- Registra tu propio usuario.
+- Modifica tus credenciales.
+- Crea y elimina tus propias publicaciones.
+- Consulta publicaciones de otros usuarios por relevancia, los más reaccionados y los más antiguos.
+- Crea y elimina tus comentarios.
+- Reacciona a publicaciones y comentarios de otros usuarios de la comunidad.
 
-### `npm start`
+### Características
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Diseño responsive adaptable a dimensiones de pantalla.
+- Manejo de errores en la interfaz.
+- Interfaz de usuario simple e intuitiva.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Fotografías
+![Captura de pantalla_20230227_082823](https://user-images.githubusercontent.com/71740420/221732299-a50330ec-edd5-40d9-b914-33a485534168.png)
+![Captura de pantalla_20230227_085325](https://user-images.githubusercontent.com/71740420/221733572-523638a3-f95d-49eb-bc8f-155f25734c0b.png)
+![Captura de pantalla_20230227_083143](https://user-images.githubusercontent.com/71740420/221732343-f4ee0405-d0c2-4584-90a2-60b5fded1cf0.png)
+![Captura de pantalla_20230227_082833](https://user-images.githubusercontent.com/71740420/221732311-720475f3-b253-4e62-b238-7fdd9b1f63e5.png)
+![Captura de pantalla_20230227_082839](https://user-images.githubusercontent.com/71740420/221732322-8075e9bc-a1ea-4808-afbb-e28450169ce8.png)
+![Captura de pantalla_20230227_082707](https://user-images.githubusercontent.com/71740420/221733849-4f7e4d12-2306-4f92-9bbc-f916b0ec262b.png)
+![image](https://user-images.githubusercontent.com/71740420/221734230-8b3daa39-4a68-40cd-b75e-ccf38f1bd2f1.png)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Captura de pantalla_20230227_090011](https://user-images.githubusercontent.com/71740420/221733675-ab2ba8f1-0f98-4222-8e28-27e297c3658e.png)
+![Captura de pantalla_20230227_083202](https://user-images.githubusercontent.com/71740420/221733684-2b9d281c-8c34-4a02-b85b-a66d2c7df141.png)
+![Captura de pantalla_20230227_082719](https://user-images.githubusercontent.com/71740420/221733697-d78189e7-1602-4fc3-97a9-7205b50e1ab3.png)
+![Captura de pantalla_20230227_082736](https://user-images.githubusercontent.com/71740420/221733710-2de215d3-812b-4801-b514-1f34712c0125.png)
+![Captura de pantalla_20230227_082707](https://user-images.githubusercontent.com/71740420/221733714-00a18d5c-efac-4abd-a0a3-0abf9f23ef38.png)
 
-### `npm run build`
+## Live page
+Conoce la experiencia ingresando a [este enlace](https://notasanonimas.netlify.app/).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# notas_anonimas_front" 
+¡Gracias!
