@@ -416,7 +416,7 @@ const CardModal = (props) => {
               <Divider orientation="horizontal" />
               <Flex
                 sx={{
-                  maxHeight: "35vh",
+                  maxHeight: "30vh",
                   overflowY: "auto",
                 }}
                 bg={commentBgColor}
@@ -437,7 +437,7 @@ const CardModal = (props) => {
                 sx={{
                   bgColor: "white",
                   paddingRight: "5px",
-                  minHeight: "35px",
+                  minHeight: "40px",
                   maxHeight: "100px",
                 }}
                 alignItems="center"
