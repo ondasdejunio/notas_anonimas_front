@@ -18,8 +18,8 @@ Aplicación web frontend de una red social basada en publicaciones. Desarrollada
 - Interfaz de usuario simple e intuitiva.
 
 ### Fotografías
-![Captura de pantalla_20230227_082823](https://user-images.githubusercontent.com/71740420/221732299-a50330ec-edd5-40d9-b914-33a485534168.png)
-![Captura de pantalla_20230227_085325](https://user-images.githubusercontent.com/71740420/221733572-523638a3-f95d-49eb-bc8f-155f25734c0b.png)
+![image](https://user-images.githubusercontent.com/71740420/221735263-e187c6f3-eaf3-4039-894b-da0d42bb11c4.png)
+![Captura de pantalla_20230227_085325](https://user-images.githubusercontent.com/71740420/221735324-d2c2dfe2-483f-4ac1-9a87-d6981c1599dc.png)
 ![Captura de pantalla_20230227_083143](https://user-images.githubusercontent.com/71740420/221732343-f4ee0405-d0c2-4584-90a2-60b5fded1cf0.png)
 ![Captura de pantalla_20230227_082833](https://user-images.githubusercontent.com/71740420/221732311-720475f3-b253-4e62-b238-7fdd9b1f63e5.png)
 ![Captura de pantalla_20230227_082839](https://user-images.githubusercontent.com/71740420/221732322-8075e9bc-a1ea-4808-afbb-e28450169ce8.png)
