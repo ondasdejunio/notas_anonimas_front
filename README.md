@@ -17,6 +17,15 @@ Aplicación web frontend de una red social basada en publicaciones. Desarrollada
 - Manejo de errores en la interfaz.
 - Interfaz de usuario simple e intuitiva.
 
+## Instalación
+1. Clonar este repositorio.
+2. Ejecutar el comando npm install para instalar todas las dependencias.
+3. Ejecutar el comando npm start para iniciar la aplicación en modo desarrollo.
+4. Acceder a la aplicación en http://localhost:3000.
+
+## Configuración
+El archivo config.js contiene la URL del servidor de la API RESTful. Si el servidor se ejecuta en una URL diferente a http://localhost:8080/api, se debe modificar el valor para que coincida con la URL del servidor.
+
 ### Fotografías
 
 ![image](https://user-images.githubusercontent.com/71740420/222026895-2d2d189b-e69e-474f-add9-fa21d8d370f5.png)
