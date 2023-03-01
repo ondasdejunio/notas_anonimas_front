@@ -5,9 +5,6 @@ const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(parts.keys);
 
 const alert = definePartsStyle({
-  overlay: {
-    bg: "blackAlpha.500",
-  },
   dialog: {
     maxWidth: ["90%", "70%", "60%", "35%"],
     minWidth: "30%",
@@ -21,9 +18,6 @@ const alert = definePartsStyle({
 });
 
 const card = definePartsStyle({
-  overlay: {
-    bg: "blackAlpha.600",
-  },
   dialog: {
     maxWidth: ["100%", "95%", "80%", "60%"],
     minWidth: "60%",
@@ -36,6 +30,8 @@ const card = definePartsStyle({
 const baseStyle = definePartsStyle({
   overlay: {
     bg: "blackAlpha.500",
+    width: "100%",
+    height: "100%",
   },
   dialog: {
     maxWidth: { base: "80%", md: "40%", lg: "30%" },
@@ -47,6 +43,12 @@ const baseStyle = definePartsStyle({
     borderRadius: "0px",
     color: "primary.50",
     fontSize: "15px",
+  },
+  body: {
+    width: "100%",
+  },
+  dialogContainer: {
+    width: "100%",
   },
 });
 
