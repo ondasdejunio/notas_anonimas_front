@@ -1,4 +1,4 @@
-# Notas Anónimas (Front)
+# Notas Anónimas (Front) :bust_in_silhouette::speech_balloon:
 
 Aplicación web frontend de una red social basada en publicaciones. Desarrollada con React JS utilizando Chakra UI, Formik, Moment JS, React Router DOM y axios.
 
