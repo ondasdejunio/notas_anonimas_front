@@ -113,6 +113,7 @@ const CardModal = (props) => {
       })
       .catch((e) => {
         setIsLoadingPostComment(false);
+        errorToast("Hubo un problema creando tu comentario.");
         console.error(e);
       });
   };
