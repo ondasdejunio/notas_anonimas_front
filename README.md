@@ -41,8 +41,4 @@ El archivo config.js contiene la URL del servidor de la API RESTful. Si el servi
 ![Captura de pantalla_20230227_082736](https://user-images.githubusercontent.com/71740420/221733710-2de215d3-812b-4801-b514-1f34712c0125.png)
 ![image](https://user-images.githubusercontent.com/71740420/222033592-84677460-4f9a-498f-bb45-d8280607b38f.png)
 
-## Live page
-
-Conoce la experiencia ingresando a [este enlace](https://notasanonimas.netlify.app/).
-
 ¡Gracias!
